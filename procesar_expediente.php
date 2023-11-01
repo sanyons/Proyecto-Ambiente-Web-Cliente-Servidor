@@ -32,6 +32,7 @@ if ($conexion->query($sql) === TRUE) {
 } else {
     echo "Error al crear el expediente médico: " . $conexion->error;
 }
+
 $conexion->close();
 ?>
 <!DOCTYPE html>
@@ -40,3 +41,8 @@ $conexion->close();
 <li><a href="ver_expedientes.php">Ver Expediente</a></li> 
 </body>
 </html>
+=======
+
+$conexion->close();
+?>
+
