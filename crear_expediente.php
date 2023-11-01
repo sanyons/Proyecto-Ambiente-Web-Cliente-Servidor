@@ -36,8 +36,11 @@
 
         <label for="edad">Edad:</label>
         <input type="number" name="edad" required><br>
-
+        <br>
         <input type="submit" value="Crear Expediente Médico">
+        <br>
+        <br>
     </form>
+   
 </body>
 </html>

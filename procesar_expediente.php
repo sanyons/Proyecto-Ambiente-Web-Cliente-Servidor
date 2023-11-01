@@ -35,3 +35,14 @@ if ($conexion->query($sql) === TRUE) {
 
 $conexion->close();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<li><a href="ver_expedientes.php">Ver Expediente</a></li> 
+</body>
+</html>
+=======
+
+$conexion->close();
+?>
+
