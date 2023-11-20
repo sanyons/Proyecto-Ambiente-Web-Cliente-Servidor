@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mascota</title>
+    <title>Cita</title>
     <link rel="preload" href="css/styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
@@ -12,52 +12,50 @@
 </head>
 <body>
     <section>
-        <h1>Listado mascota</h1>
+        <h1>Listado cita</h1>
         <!-- Aqui listado mascota -->
-
-
-        <section th:fragment="listadoMascotas" id="mascotas">
+        <section th:fragment="listadoCitas" id="citas">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header"style="background-color: #42829C;">
-                                <h4 style="color:white">[[#{mascota.listado}]]</h4></div>
-                            <div th:if="${mascotas != null and !mascotas.empty}">
+                                <h4 style="color:white">[[#{citas.listado}]]</h4>
+                            </div>
+                            <div th:if="${citas != null and !citas.empty}">
                                 <table class="table table-striped table-hover">
                                     <thead class="table-primary">
                                         <tr><th>#</th>
-                                            <th>[[#{mascota.nombre}]]</th>
-                                            <th>[[#{mascota.especie}]]</th>
-                                            <th>[[#{mascota.sexo}]]</th>
+                                            <th>[[#{citas.descripcion}]]</th>
+                                            <th>[[#{citas.activo}]]</th>
                                             <th></th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="mascota, contador : ${mascotas}">
+                                        <tr th:each="citas, contador : ${citas}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${mascota.nombre}]]</td>
-                                            <td>[[${mascota.especie}]]</td>
-                                            <td>[[${mascota.sexo}]]</td>
+                                            <td>[[${citas.descripcion}]]</td>
+                                            <td th:text="${citas.activo} ? 'Activa' : 'Inactiva'" />
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                                <a th:href="@{/mascota/eliminar/}+${mascota.Id}"
+                                                <a th:href="@{/cita/eliminar/}+${citas.idCitas}"
                                                    class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                                <a th:href="@{/mascota/modificar/}+${mascota.Id}"
+                                                <a th:href="@{/cita/modificar/}+${citas.idCitas}"
                                                    class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td></tr>
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-center p-2" th:if="${mascotas == null or mascotas.empty}">
+                            <div class="text-center p-2" th:if="${citas == null or citas.empty}">
                                 <span>[[#{lista.vacia}]]</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card text-center mb-3">
-                        <img src=https://cdn-icons-png.flaticon.com/512/6462/6462524.png alt="categorias" style="width:100%">
+                        <img src=https://cdn-icons-png.flaticon.com/512/1572/1572132.png alt="categorias" style="width:100%">
                         <div class="container">
-                        <h4 class="fs-2">[[#{plantilla.consultas}]]</h4>
+                        <h4 class="fs-2">[[#{plantilla.citas}]]</h4>
                         </div>
                      </div>
                     </div>
@@ -65,19 +63,15 @@
             </div>
         </section>
 
+
+
+
+
     </section>
 
     <!-- Incluir el footer -->
     <footer id="footer-placeholder">
         <!-- El contenido del footer se cargará aquí -->
-
-
-
-
-
-
-
-
 
     </footer>
 
