@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Usuario</title>
-    <link rel="preload" href="css/styles.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/calendario.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usario</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- Incluir el header -->
     <header class="header" id="header-placeholder">
         <!-- El contenido del header se cargará aquí -->
     </header>
 </head>
 <body>
-    <section>
         <h1>Listado usuario</h1>
         <!-- Aqui listado mascota -->
         
         <section th:fragment="listadoUsuarios" id="usuarios">
-            <div class="container">
+            <div class="container" margin-bottom: 20px;>
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
@@ -64,30 +78,23 @@
             </div>
         </section>
 
-
-
-
-    </section>
-
-    <!-- Incluir el footer -->
-    <footer id="footer-placeholder">
-        <!-- El contenido del footer se cargará aquí -->
-
+    <footer id="footer-placeholder" class="container">
+      <!-- El contenido del footer se cargará aquí -->
     </footer>
 
     <script>
-        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-        fetch('templates/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            });
+      // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
+      fetch('templates/header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+        });
 
-        fetch('templates/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
+      fetch('templates/footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        });
     </script>
 </body>
 </html>
