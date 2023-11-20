@@ -5,8 +5,15 @@
     <link rel="preload" href="css/styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
+      <!-- Incluir el header -->
+      <header class="header" id="header-placeholder">
+        <!-- El contenido del header se cargará aquí -->
+    </header>
 </head>
 <body>
+
+  
+
     <h1>Agendar Cita</h1>
     <form method="POST" action="procesar_cita.php">
         <label for="nombre_mascota">Nombre de la Mascota:</label>
@@ -68,6 +75,28 @@
         <input type="submit" value="Agendar Cita">
        
     </form>
-</body>
-</html>
 
+   
+
+</body>
+
+<!-- Incluir el footer -->
+<footer id="footer-placeholder">
+    <!-- El contenido del footer se cargará aquí -->
+</footer>
+
+<script>
+    // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
+    fetch('templates/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+        });
+
+    fetch('templates/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+</script>
+</html>
