@@ -14,75 +14,56 @@
     <section>
         <h1>Listado mascota</h1>
         <!-- Aqui listado mascota -->
-        <?php
-// Tu código de conexión a la base de datos aquí
-$conexion = mysqli_connect("localhost", "root", "", "veterinaria_db");
-
-if (!$conexion) {
-    die("Error de conexión: " . mysqli_connect_error());
-}
-
-// Botón Agregar Mascota
-echo "<button onclick='agregarMascota()'>Agregar Mascota</button>";
-
-$query = "SELECT * FROM mascota";
-$result = mysqli_query($conexion, $query);
-
-// Verificar si hay resultados
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        // Información de la mascota
-        echo "<p>{$row['nombre']} - {$row['especie']} - {$row['sexo']}</p>";
-
-        // Botones de eliminar y actualizar al lado derecho
-        echo "<button onclick='eliminarMascota({$row['id_mascota']})'>Eliminar</button>";
-        echo "<button onclick='actualizarMascota({$row['id_mascota']})'>Actualizar</button>";
-    }
-} else {
-    echo "No hay mascotas registradas.";
-}
-
-// Cerrar la conexión a la base de datos
-mysqli_close($conexion);
-?>
-
-<script>
-    function agregarMascota() {
-        // Redirigir a la página de agregar mascota
-        window.location.href = 'crear_mascota.php';
-    }
-
-    function eliminarMascota(idMascota) {
-        var confirmacion = confirm("¿Estás seguro de que quieres eliminar esta mascota?");
-        if (confirmacion) {
-            // Hacer una solicitud AJAX para eliminar la mascota por su ID
-            // Puedes usar fetch o jQuery.ajax para esto
-            // Después de eliminar, recargar la página o actualizar la lista de mascotas
-            // Ejemplo usando fetch:
-            fetch('eliminar_mascota.php?id=' + idMascota, {
-                method: 'POST',
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Mascota eliminada con éxito.");
-                    location.reload(); // Recargar la página (puedes mejorar esto con AJAX)
-                } else {
-                    alert("Error al eliminar la mascota.");
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    }
-
-    function actualizarMascota(idMascota) {
-        // Redirigir a la página de actualización de mascotas con el ID como parámetro
-        window.location.href = 'actualizar_mascota.php?id=' + idMascota;
-    }
-</script>
 
 
-
+        <section th:fragment="listadoMascotas" id="mascotas">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header"style="background-color: #42829C;">
+                                <h4 style="color:white">[[#{mascota.listado}]]</h4></div>
+                            <div th:if="${mascotas != null and !mascotas.empty}">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-primary">
+                                        <tr><th>#</th>
+                                            <th>[[#{mascota.nombre}]]</th>
+                                            <th>[[#{mascota.especie}]]</th>
+                                            <th>[[#{mascota.sexo}]]</th>
+                                            <th></th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="mascota, contador : ${mascotas}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${mascota.nombre}]]</td>
+                                            <td>[[${mascota.especie}]]</td>
+                                            <td>[[${mascota.sexo}]]</td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a th:href="@{/mascota/eliminar/}+${mascota.Id}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
+                                                <a th:href="@{/mascota/modificar/}+${mascota.Id}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${mascotas == null or mascotas.empty}">
+                                <span>[[#{lista.vacia}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center mb-3">
+                        <img src=https://cdn-icons-png.flaticon.com/512/6462/6462524.png alt="categorias" style="width:100%">
+                        <div class="container">
+                        <h4 class="fs-2">[[#{plantilla.consultas}]]</h4>
+                        </div>
+                     </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </section>
 
