@@ -5,11 +5,15 @@
     <link rel="preload" href="css/styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
-    <!-- Incluir el header -->
+
+    
+</head>
+
+
     <header class="header" id="header-placeholder">
         <!-- El contenido del header se cargará aquí -->
     </header>
-</head>
+
 <body>
     <section>
         <h1>Nosotros</h1>

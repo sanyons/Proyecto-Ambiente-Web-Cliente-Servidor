@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
       <!-- Incluir el header -->
-      <header class="header" id="header-placeholder">
+</head>
+
+    <header class="header" id="header-placeholder">
         <!-- El contenido del header se cargará aquí -->
     </header>
-</head>
+
 <body>
 
   
