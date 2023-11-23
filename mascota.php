@@ -41,7 +41,21 @@ $result = $conn->query($sql);
     <!-- boostrap -->
     <!-- Body -->
     <section>
-        
+   
+            <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarMascota">
+                            <i class="fas fa-plus"></i> Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         <!-- Aquí va el listado de mascotas -->
 
         <section id="mascotas">
