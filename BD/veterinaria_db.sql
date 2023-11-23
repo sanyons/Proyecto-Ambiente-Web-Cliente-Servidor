@@ -155,3 +155,47 @@ INSERT INTO horarios_disponibles (dia_semana, hora_inicio, hora_fin, activo)
 VALUES ('martes', '10:00:00', '11:00:00', 1);
 
 -- Puedes seguir insertando horarios disponibles para otros días de la semana
+
+INSERT INTO persona (idUser, nombre, username, password, rutaImagen, numero, correo, activo)
+VALUES 
+('111111111', 'Juan Pérez', 'juanperez', 'clave123', '/ruta/imagen1.jpg', '1234567890', 'juan.perez@email.com', true),
+('222222222', 'Ana Rodríguez', 'anarodriguez', 'clave456', '/ruta/imagen2.jpg', '9876543210', 'ana.rodriguez@email.com', true),
+('333333333', 'Carlos Gómez', 'carlosgomez', 'clave789', '/ruta/imagen3.jpg', '5555555555', 'carlos.gomez@email.com', true),
+('444444444', 'María López', 'marialopez', 'claveabc', '/ruta/imagen4.jpg', '7777777777', 'maria.lopez@email.com', true),
+('555555555', 'Pedro Fernández', 'pedrofernandez', 'clavedef', '/ruta/imagen5.jpg', '9999999999', 'pedro.fernandez@email.com', true);
+
+
+INSERT INTO usuario (username, password, nombre, apellidos, correo, telefono, ruta_imagen, activo)
+VALUES 
+('usuario1', 'password1', 'Usuario 1', 'Apellido 1', 'usuario1@email.com', '111111111', '/ruta/imagen_usuario1.jpg', true),
+('usuario2', 'password2', 'Usuario 2', 'Apellido 2', 'usuario2@email.com', '222222222', '/ruta/imagen_usuario2.jpg', true),
+('usuario3', 'password3', 'Usuario 3', 'Apellido 3', 'usuario3@email.com', '333333333', '/ruta/imagen_usuario3.jpg', true),
+('usuario4', 'password4', 'Usuario 4', 'Apellido 4', 'usuario4@email.com', '444444444', '/ruta/imagen_usuario4.jpg', true),
+('usuario5', 'password5', 'Usuario 5', 'Apellido 5', 'usuario5@email.com', '555555555', '/ruta/imagen_usuario5.jpg', true);
+
+
+INSERT INTO rol (nombre, id_usuario)
+VALUES 
+('Administrador', 1),
+('Cliente', 2),
+('Cliente', 3),
+('Administrador', 4),
+('Cliente', 5);
+
+
+INSERT INTO mascota (nombre, especie, sexo, ruta_imagen, activo, id_usuario)
+VALUES 
+('Mascota1', 'Perro', 'Macho', '/ruta/imagen_mascota1.jpg', true, 1),
+('Mascota2', 'Gato', 'Hembra', '/ruta/imagen_mascota2.jpg', true, 2),
+('Mascota3', 'Perro', 'Hembra', '/ruta/imagen_mascota3.jpg', true, 3),
+('Mascota4', 'Conejo', 'Macho', '/ruta/imagen_mascota4.jpg', true, 4),
+('Mascota5', 'Gato', 'Macho', '/ruta/imagen_mascota5.jpg', true, 5);
+
+
+INSERT INTO expediente (nombre_mascota, veterinario, padecimiento, presion, pulso, temperatura, peso, talla, edad, activo, id_mascota)
+VALUES 
+('Mascota1', 'Vet1', 'Padecimiento1', 120, 80, 39.5, 10, 30, 5, true, 1),
+('Mascota2', 'Vet2', 'Padecimiento2', 130, 85, 40.0, 12, 35, 6, true, 2),
+('Mascota3', 'Vet3', 'Padecimiento3', 110, 78, 39.0, 9, 28, 4, true, 3),
+('Mascota4', 'Vet4', 'Padecimiento4', 125, 82, 39.8, 11, 32, 5, true, 4),
+('Mascota5', 'Vet5', 'Padecimiento5', 128, 84, 39.7, 10.5, 31, 6, true, 5);
