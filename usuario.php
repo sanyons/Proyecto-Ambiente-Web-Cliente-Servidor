@@ -50,19 +50,22 @@ $result = $conn->query($sql);
 <!-- boostrap --> 
 </head>
 <body>
-<div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
-                <div class="row">
-                    <div class="col-md-3">   
-                        <button 
-                            type="button" 
-                            class="btn btn-primary btn-block" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#agregarMascota">
-                            <i class="fas fa-plus"></i> Agregar
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">   
+            <!-- Botón que redirige a la página crear_usuario.php -->
+            <button 
+                type="button" 
+                class="btn btn-primary btn-block" 
+                onclick="window.location.href='crear_usuario.php'"
+            >
+                <i class="fas fa-plus"></i> Agregar
+            </button>
+        </div>
+    </div>
+</div>
+
+<br>
 
 <!-- boostrap body -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -104,10 +107,10 @@ $result = $conn->query($sql);
                                                     <td><?php echo $row["nombre"]; ?></td>
                                                     <td><?php echo $row["apellidos"]; ?></td>
                                                     <td>
-                                                        <a href="/usuario/eliminar/<?php echo $row["id_usuario"]; ?>" class="btn btn-danger">
+                                                        <a href="eliminar_usuario.php<?php echo $row["id_usuario"]; ?>" class="btn btn-danger">
                                                             <i class="fas fa-trash"></i> Eliminar
                                                         </a>
-                                                        <a href="/usuario/modificar/<?php echo $row["id_usuario"]; ?>" class="btn btn-success">
+                                                        <a href="actualizar_usuario.php<?php echo $row["id_usuario"]; ?>" class="btn btn-success">
                                                             <i class="fas fa-pencil"></i> Actualizar
                                                         </a>
                                                     </td>
@@ -168,3 +171,4 @@ $result = $conn->query($sql);
 // Cerrar la conexión a la base de datos
 $conn->close();
 ?>
+

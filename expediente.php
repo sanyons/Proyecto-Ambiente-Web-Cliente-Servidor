@@ -42,7 +42,9 @@ $result = $conn->query($sql);
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#agregarMascota">
+                            data-bs-target="#agregarMascota"
+                            onclick="window.location.href='crear_expediente.php'"
+                            >
                             <i class="fas fa-plus"></i> Agregar
                         </button>
                     </div>
