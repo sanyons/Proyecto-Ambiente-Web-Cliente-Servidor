@@ -50,7 +50,7 @@
         } else {
             
             // Consulta los horarios disponibles para el día actual (por ejemplo, "lunes")
-            $dia_semana_actual = date('l');
+            $dia_semana_actual = date('lunes');
 
             $sql = "SELECT id_horario, hora_inicio, hora_fin
                     FROM horarios_disponibles
@@ -60,7 +60,7 @@
         }
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id_horario'] . "'>" . $row['hora_inicio'] . " - " . $row['hora_fin'] . "</option>";
+                    echo "<option value='" . $row['id_horario'] . $row['dia_semana']. "'>" . $row['hora_inicio'] . " - " . $row['hora_fin'] . "</option>";
                 }
             } else {
                 echo "<option value='' disabled> No hay horarios disponibles para hoy.</option>";
