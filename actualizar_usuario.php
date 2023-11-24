@@ -1,63 +1,42 @@
-<?php
- session_start();
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actualizar Usuario</title>
+    <link rel="preload" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/calendario.css">
+</head>
+<body>
+    <h1>Actualizar Usuario</h1>
+    <!-- Formulario para actualizar un usuario existente -->
+    <form method="POST" action="procesar_usuario.php" enctype="multipart/form-data">
+        <input type="hidden" name="accion" value="Actualizar Usuario">
 
- // Conexión a la base de datos 
- $server = "localhost";
- $user = "root";
- $password = "";
- $dataBase = "veterinaria_db";
- //1. Establecer la conexion mysqli
- $conexion = mysqli_connect($server, $user, $password, $dataBase);
- 
- if (!$conexion) {
-     die("Error de conexión a la base de datos: " . mysqli_connect_error());
- }
- 
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     // Acción: Actualizar Usuario
-     if ($_POST["accion"] === "Actualizar Usuario") {
-         // Recopilar los nuevos datos del formulario
-         $nuevoNombre = $_POST["nuevoNombre"];
-         $nuevosApellidos = $_POST["nuevosApellidos"];
-         $nuevoCorreo = $_POST["nuevoCorreo"];
-         $nuevoTelefono = $_POST["nuevoTelefono"];
-         $username_actualizar = $_POST["username_actualizar"];
- 
-         // Consulta SQL para actualizar el usuario
-         $sql = "UPDATE usuario
-                 SET nombre = '$nuevoNombre', apellidos = '$nuevosApellidos', correo = '$nuevoCorreo', telefono = '$nuevoTelefono'
-                 WHERE username = '$username_actualizar'";
- 
-         if (mysqli_query($conexion, $sql)) {
-             // Redirige o muestra un mensaje de éxito
-             header("Location: usuario_actualizado.php");
-         } else {
-             // Redirige o muestra un mensaje de error
-             header("Location: error_actualizar_usuario.php");
-         }
-     }
- }
- 
- // Cierra la conexión a la base de datos
- mysqli_close($conexion);
- ?>
- 
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required><br>
 
- ********************
- <!-- Formulario para actualizar un usuario -->
-<form method="POST" action="actualizar_usuario.php">
-        <!-- Campos para actualizar un usuario (ingresar el username del usuario a actualizar) -->
-        <label for="username_actualizar">Username del Usuario a Actualizar:</label>
-        <input type="text" name="username_actualizar" required><br>
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" name="apellidos" required><br>
 
-        <input type="submit" name="accion" value="Actualizar Usuario">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+
+        <label for="password">Nueva Contraseña:</label>
+        <input type="password" name="password"><br>
+
+        <label for="correo">Correo:</label>
+        <input type="email" name="correo" required><br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" name="telefono" required><br>
+
+        <label for="ruta_imagen">Nueva Imagen de perfil:</label>
+        <input type="file" name="ruta_imagen"><br><br>
+
+        <input type="submit" value="Actualizar Usuario">
+        <a href="usuario.php" class="btn btn-secondary btn-block">
+        <i class="fas fa-arrow-left"></i> Cerrar formulario </a>
     </form>
-
-    <!-- Formulario para eliminar un usuario -->
-    <form method="POST" action="eliminar_usuario.php">
-        <!-- Campos para eliminar un usuario (ingresar el username del usuario a eliminar) -->
-        <label for="username_eliminar">Username del Usuario a Eliminar:</label>
-        <input type="text" name="username_eliminar" required><br>
-
-        <input type="submit" name="accion" value="Eliminar Usuario">
-    </form>
+    <br>
+</body>
+</html>
