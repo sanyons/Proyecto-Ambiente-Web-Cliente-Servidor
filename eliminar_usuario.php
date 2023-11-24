@@ -1,36 +1,43 @@
 <?php
 session_start();
 
-// Conexión a la base de datos 
-$server = "localhost";
-$user = "root";
-$password = "";
-$dataBase = "veterinaria_db";
-//1. Establecer la conexion mysqli
-$conexion = mysqli_connect($server, $user, $password, $dataBase);
+// Comprobar si se ha enviado un formulario
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    // Recopilar el ID del usuario a eliminar
+    $id_usuario = isset($_GET["id"]) ? $_GET["id"] : '';
 
-if (!$conexion) {
-    die("Error de conexión a la base de datos: " . mysqli_connect_error());
-}
+    // Conexión a la base de datos 
+    $server = "localhost";
+    $user = "root";
+    $password = "";
+    $dataBase = "veterinaria_db";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Acción: Eliminar Usuario
-    if ($_POST["accion"] === "Eliminar Usuario") {
-        $username_eliminar = $_POST["username_eliminar"];
+    // Establecer la conexión mysqli
+    $conexion = mysqli_connect($server, $user, $password, $dataBase);
 
-        // Consulta SQL para eliminar el usuario
-        $sql = "DELETE FROM usuario WHERE username = '$username_eliminar'";
-
-        if (mysqli_query($conexion, $sql)) {
-            // Redirige o muestra un mensaje de éxito
-            header("Location: usuario_eliminado.php");
-        } else {
-            // Redirige o muestra un mensaje de error
-            header("Location: error_eliminar_usuario.php");
-        }
+    // Verificar la conexión
+    if (!$conexion) {
+        die("Error de conexión: " . mysqli_connect_error());
     }
-}
 
-// Cierra la conexión a la base de datos
-mysqli_close($conexion);
+    // Consulta SQL para eliminar un usuario por ID
+    $sql = "DELETE FROM usuario WHERE id_usuario = '$id_usuario'";
+
+    // Ejecutar la consulta
+    if (mysqli_query($conexion, $sql)) {
+        // Mostrar mensaje de éxito con JavaScript
+        echo '<script>alert("Usuario eliminado exitosamente.");</script>';
+    } else {
+        // Mostrar mensaje de error con JavaScript
+        echo '<script>alert("Error al eliminar el usuario: ' . mysqli_error($conexion) . '");</script>';
+    }
+
+    // Redirigir a usuario.php después de eliminar el usuario
+    echo '<script>window.location.href = "usuario.php";</script>';
+
+    // Cerrar la conexión a la base de datos
+    mysqli_close($conexion);
+} else {
+    echo "Acceso no válido.";
+}
 ?>

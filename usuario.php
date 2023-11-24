@@ -91,16 +91,15 @@ $result = $conn->query($sql);
                                                 <td><?php echo $row["telefono"]; ?></td>
                                                 <td><img src="<?php echo $row["ruta_imagen"]; ?>" alt="Imagen de perfil" style="width: 50px; height: 50px;"></td>
                                                 <td>
-                <div class="btn-group">
-                    <a href="eliminar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Eliminar
-                    </a>
-                    <a href="actualizar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-success">
-                        <i class="fas fa-pencil"></i> Actualizar
-                    </a>
-                </div>
-            </td>
-        </tr>
+                                                     <div class="btn-group">
+                                                         <a href="eliminar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-danger">
+                                                        <i class="fas fa-trash"></i> Eliminar</a>
+                                                        <a href="actualizar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-success">
+                                                        <i class="fas fa-pencil"></i> Actualizar
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         <?php endwhile; ?>
                                     </tbody>
                                 </table>
