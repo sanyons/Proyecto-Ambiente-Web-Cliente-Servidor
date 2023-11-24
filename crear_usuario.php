@@ -35,7 +35,7 @@
 
         <input type="submit" value="Crear Usuario">
         <a href="usuario.php" class="btn btn-secondary btn-block">
-        <i class="fas fa-arrow-left"></i> Cerrar formulario </a>
+        <i class="fas fa-arrow-left"></i> Cerrar</a>
     </form>
     <br>
    
