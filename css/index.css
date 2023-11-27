@@ -4,6 +4,7 @@ body {
     font-family: "Euclid Circular A", "Poppins";
     color: #d6dfed;
   }
+
   
   html,
   body {
@@ -52,6 +53,7 @@ body {
     font-size: 12px;
     margin: 0;
   }
+
   
   svg {
     position: absolute;
