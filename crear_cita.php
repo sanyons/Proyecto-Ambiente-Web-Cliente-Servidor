@@ -6,10 +6,12 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
       <!-- Incluir el header -->
-      <header class="header" id="header-placeholder">
+</head>
+
+    <header class="header" id="header-placeholder">
         <!-- El contenido del header se cargará aquí -->
     </header>
-</head>
+
 <body>
 
   
@@ -28,48 +30,61 @@
         <label for="ruta_imagen">Imagen de la Mascota:</label>
         <input type="file" name="ruta_imagen"><br>
 
-        <label for="horario_disponible">Seleccionar Horario:</label>
-        <select  name="horario_disponible" required>
+        <!-- <label for="horario_disponible">Seleccionar Horario:</label>
+        <select  name="horario_disponible" required> -->
        
-            <?php
-            date_default_timezone_set('America/Costa_Rica');
-            session_start();
+        <label for="horario_disponible">Seleccionar Horario:</label>
+        <select name="horario_disponible" required>
+        <?php
+date_default_timezone_set('America/Costa_Rica');
+session_start();
 
-             // Conexión a la base de datos 
-        $server = "localhost";
-        $user = "root";
-        $password = "";
-        $dataBase = "veterinaria_db";
-        //1. Establecer la conexion mysqli
-        $conexion = mysqli_connect($server, $user, $password, $dataBase);
-           
-           // Verificar la conexión
-        if ($conexion->connect_error) {
-        error_log("Error de conexión a la base de datos: " . $conexion->connect_error, 0);
-        echo "Hubo un error al conectar a la base de datos.";
-        } else {
-            
-            // Consulta los horarios disponibles para el día actual (por ejemplo, "lunes")
-            $dia_semana_actual = date('lunes');
+// Conexión a la base de datos 
+$server = "localhost";
+$user = "root";
+$password = "";
+$dataBase = "veterinaria_db";
 
-            $sql = "SELECT id_horario, hora_inicio, hora_fin
-                    FROM horarios_disponibles
-                    WHERE dia_semana = '$dia_semana_actual' AND activo = 1";
+// Establecer la conexión mysqli
+$conexion = mysqli_connect($server, $user, $password, $dataBase);
 
-            $result = $conexion->query($sql);
-        }
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<option value='" . $row['id_horario'] . $row['dia_semana']. "'>" . $row['hora_inicio'] . " - " . $row['hora_fin'] . "</option>";
-                }
-            } else {
-                echo "<option value='' disabled> No hay horarios disponibles para hoy.</option>";
-            }
-            
-            $conexion->close();
-            ?>
-            
-        </select>
+// Verificar la conexión
+if (!$conexion) {
+    die("Error de conexión a la base de datos: " . mysqli_connect_error());
+}
+
+// Obtener el día de la semana actual
+$dia_semana_actual = strtolower(date('l')); // Convertir a minúsculas
+
+// Obtener la hora actual
+$hora_actual = date('H:i:s');
+
+// Consultar los horarios disponibles para el día actual y con hora de inicio posterior a la hora actual
+$sql = "SELECT id_horario, hora_inicio, hora_fin
+        FROM horarios_disponibles
+        WHERE dia_semana = '$dia_semana_actual' 
+        AND activo = 1
+        AND STR_TO_DATE(CONCAT(CURDATE(), ' ', hora_inicio), '%Y-%m-%d %H:%i:%s') > STR_TO_DATE('$hora_actual', '%H:%i:%s')";
+
+$result = $conexion->query($sql);
+
+// Imprimir errores de la consulta
+if (!$result) {
+    echo "Error en la consulta: " . $conexion->error;
+}
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "<option value='" . $row['id_horario'] . "'>" . $row['hora_inicio'] . " - " . $row['hora_fin'] . "</option>";
+    }
+} else {
+    echo "<option value='' disabled> No hay horarios disponibles para hoy.</option>";
+}
+
+$conexion->close();
+?>
+
+</select>
         <br>
         <br>
         <input type="submit" value="Agendar Cita">

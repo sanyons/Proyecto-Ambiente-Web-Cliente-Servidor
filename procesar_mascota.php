@@ -14,19 +14,18 @@ if ($conexion->connect_error) {
     die("Conexión fallida: " . $conexion->connect_error);
 }
 
-// Verificar si la sesión está iniciada
-if (!isset($_SESSION["id_usuario"])) {
-    // Manejar la falta de sesión de alguna manera (redirigir a la página de inicio de sesión, por ejemplo)
-    echo "Error: La sesión no está iniciada.";
-    exit();
-}
-
-// Recopilar datos del formulario y escaparlos para prevenir inyección de SQL
-$nombre_mascota = mysqli_real_escape_string($conexion, $_POST["nombre_mascota"]);
-$nombre_duenno = mysqli_real_escape_string($conexion, $_POST["nombre_duenno"]);
-$descripcion = mysqli_real_escape_string($conexion, $_POST["descripcion"]);
-$id_usuario = mysqli_real_escape_string($conexion, $_SESSION["id_usuario"]);
-$id_horario = mysqli_real_escape_string($conexion, $_POST["horario_disponible"]);
+// // Verificar si la sesión está iniciada
+// if (!isset($_SESSION["id_usuario"])) {
+//     // Manejar la falta de sesión de alguna manera (redirigir a la página de inicio de sesión, por ejemplo)
+//     echo "Error: La sesión no está iniciada.";
+//     exit();
+// }
+// // Recopilar datos del formulario y escaparlos para prevenir inyección de SQL
+// $nombre_mascota = mysqli_real_escape_string($conexion, $_POST["nombre_mascota"]);
+// $nombre_duenno = mysqli_real_escape_string($conexion, $_POST["nombre_duenno"]);
+// $descripcion = mysqli_real_escape_string($conexion, $_POST["descripcion"]);
+// $id_usuario = mysqli_real_escape_string($conexion, $_SESSION["id_usuario"]);
+// $id_horario = mysqli_real_escape_string($conexion, $_POST["horario_disponible"]);
 
 // Manejar la carga de archivos
 $ruta_imagen = ""; // Inicializa la variable en caso de que no se haya subido ninguna imagen

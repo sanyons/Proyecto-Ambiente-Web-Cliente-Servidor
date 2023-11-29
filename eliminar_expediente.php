@@ -3,8 +3,8 @@ session_start();
 
 // Comprobar si se ha enviado un formulario
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Recopilar el ID del usuario a eliminar
-    $id_usuario = isset($_GET["id"]) ? $_GET["id"] : '';
+    // Recopilar el ID del expediente a eliminar
+    $id_expediente = isset($_GET["id"]) ? $_GET["id"] : '';
 
     // Conexión a la base de datos 
     $server = "localhost";
@@ -20,20 +20,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         die("Error de conexión: " . mysqli_connect_error());
     }
 
-    // Consulta SQL para eliminar un usuario por ID
-    $sql = "DELETE FROM usuario WHERE id_usuario = '$id_usuario'";
+    // Consulta SQL para eliminar un expediente por ID
+    $sql = "DELETE FROM expediente WHERE id_expediente = '$id_expediente'";
 
     // Ejecutar la consulta
     if (mysqli_query($conexion, $sql)) {
         // Mostrar mensaje de éxito con JavaScript
-        echo '<script>alert("Usuario eliminado exitosamente.");</script>';
+        echo '<script>alert("Expediente eliminado exitosamente.");</script>';
     } else {
         // Mostrar mensaje de error con JavaScript
-        echo '<script>alert("Error al eliminar el usuario: ' . mysqli_error($conexion) . '");</script>';
+        echo '<script>alert("Error al eliminar el expediente: ' . mysqli_error($conexion) . '");</script>';
     }
 
-    // Redirigir a usuario.php después de eliminar el usuario
-    echo '<script>window.location.href = "usuario.php";</script>';
+    // Redirigir a ver_expedientes.php después de eliminar el expediente
+    echo '<script>window.location.href = "expediente.php";</script>';
 
     // Cerrar la conexión a la base de datos
     mysqli_close($conexion);
