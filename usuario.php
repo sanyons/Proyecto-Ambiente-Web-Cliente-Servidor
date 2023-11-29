@@ -19,6 +19,7 @@ $result = $conn->query($sql);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,6 +36,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+
 <body>
     <!-- Cargar el header -->
     <header id="header-placeholder">
@@ -43,9 +45,10 @@ $result = $conn->query($sql);
 
     <div class="container">
         <div class="row">
-            <div class="col-md-3">   
+            <div class="col-md-3">
                 <!-- Botón que llama a la función para cargar el formulario -->
-                <button type="button" class="btn btn-primary btn-block" onclick="cargarFormularioCrearUsuario()">
+                <button type="button" class="btn btn-primary btn-block" 
+                onclick="cargarFormularioCrearUsuario()">
                     <i class="fas fa-plus"></i> Agregar
                 </button>
             </div>
@@ -66,7 +69,7 @@ $result = $conn->query($sql);
                             <h4 style="color:white">Listado de Usuarios</h4>
                         </div>
                         <div>
-                            <?php if ($result->num_rows > 0): ?>
+                            <?php if ($result->num_rows > 0) : ?>
                                 <table class="table table-striped table-hover">
                                     <thead class="table-primary">
                                         <tr>
@@ -81,7 +84,7 @@ $result = $conn->query($sql);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php while($row = $result->fetch_assoc()): ?>
+                                        <?php while ($row = $result->fetch_assoc()) : ?>
                                             <tr>
                                                 <td><?php echo $row["id_usuario"]; ?></td>
                                                 <td><?php echo $row["username"]; ?></td>
@@ -91,11 +94,11 @@ $result = $conn->query($sql);
                                                 <td><?php echo $row["telefono"]; ?></td>
                                                 <td><img src="<?php echo $row["ruta_imagen"]; ?>" alt="Imagen de perfil" style="width: 50px; height: 50px;"></td>
                                                 <td>
-                                                     <div class="btn-group">
-                                                         <a href="eliminar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i> Eliminar</a>
+                                                    <div class="btn-group">
+                                                        <a href="eliminar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i> Eliminar</a>
                                                         <a href="actualizar_usuario.php?id=<?php echo $row["id_usuario"]; ?>" class="btn btn-success">
-                                                        <i class="fas fa-pencil"></i> Actualizar
+                                                            <i class="fas fa-pencil"></i> Actualizar
                                                         </a>
                                                     </div>
                                                 </td>
@@ -103,7 +106,7 @@ $result = $conn->query($sql);
                                         <?php endwhile; ?>
                                     </tbody>
                                 </table>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <div class="text-center p-2">
                                     <span>No hay usuarios registrados.</span>
                                 </div>
@@ -161,4 +164,5 @@ $result = $conn->query($sql);
             });
     </script>
 </body>
+
 </html>
