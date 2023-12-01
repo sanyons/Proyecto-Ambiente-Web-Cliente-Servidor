@@ -59,7 +59,7 @@ create table mascota(
     sexo varchar(10),
     ruta_imagen varchar(1024),
     activo boolean,
-	id_usuario int,
+	  id_usuario int,
     primary key(id_mascota),
 	foreign key fk_mascota_usuario (id_usuario) references usuario(id_usuario)
 )
