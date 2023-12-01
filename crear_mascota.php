@@ -80,7 +80,8 @@ $resultUsuarios = $conn->query($sqlUsuarios);
             <input type="file" name="ruta_imagen"><br>
 
             <input type="submit" value="Crear Mascota">
-
+            <a href="mascota.php" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Cerrar</a>
         </form>
     </section>
 
