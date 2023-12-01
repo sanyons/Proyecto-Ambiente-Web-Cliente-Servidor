@@ -43,6 +43,7 @@ $result = $conn->query($sql);
     <div class="container">
         <div class="row">
             <div class="col-md-3">
+            <br>
                 <!-- Botón que llama a la función para cargar el formulario -->
                 <button type="button" class="btn btn-primary btn-block" onclick="cargarFormularioCrearMascota()">
                     <i class="fas fa-plus"></i> Agregar
