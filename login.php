@@ -2,10 +2,10 @@
 // Conexión a la base de datos
 $server = "localhost";
 $user = "root";
-$password = "";
+$pass = "";
 $dataBase = "veterinaria_db";
 
-$conn = new mysqli($server, $user, $password, $dataBase);
+$conn = new mysqli($server, $user, $pass, $dataBase);
 
 // Verificar la conexión
 if ($conn->connect_error) {
@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta para obtener las mascotas
-$sql = "SELECT * FROM mascota";
+$sql = "SELECT * FROM usuario";
 $result = $conn->query($sql);
 
 ?>
@@ -105,19 +105,38 @@ $result = $conn->query($sql);
     </footer>
 
     <script>
-        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-        fetch('templates/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-            });
+    // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
+    fetch('templates/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+        });
 
-        fetch('templates/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
-    </script>
+    fetch('templates/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+        
+    // Mostrar el popup después de un inicio de sesión exitoso
+    const userInfo = getCookie('user_info');
+    if (userInfo) {
+        const userObj = JSON.parse(userInfo);
+        alert("Inicio de sesión exitoso. ¡Bienvenido, " + userObj.username + "!");
+    }
+
+    // Función para obtener el valor de una cookie por nombre
+    function getCookie(name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + '=')) {
+                return cookie.substring(name.length + 1);
+            }
+        }
+        return null;
+    }
+</script>
 </body>
 </html>
 

@@ -9,30 +9,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Conectar a la base de datos
     $server = "localhost";
     $user = "root";
-    $password = "";
+    $db_password = "";
     $dataBase = "veterinaria_db";
 
-    $conn = new mysqli($server, $user, $password, $dataBase);
+    $conn = new mysqli($server, $user, $db_password, $dataBase);
 
     if ($conn->connect_error) {
         die("Error de conexión: " . $conn->connect_error);
     }
 
     // Utilizar sentencias preparadas para prevenir inyección de SQL
-    $stmt = $conn->prepare("SELECT * FROM usuario WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $username, $password);
+    $stmt = $conn->prepare("SELECT id_usuario, username, password FROM usuario WHERE username = ?");
+    $stmt->bind_param("s", $username);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $stmt->store_result();
 
-    if ($result->num_rows == 1) {
-        // Inicio de sesión exitoso
-        $_SESSION['username'] = $username;
-        header("Location: inicio_exitoso.php");
-        exit(); // Asegurarse de salir después de redirigir
+    if ($stmt->num_rows == 1) {
+        // Encontrar el usuario, obtener la contraseña hash
+        $stmt->bind_result($id_usuario, $db_username, $db_password_hash);
+        $stmt->fetch();
+
+        // Verificar la contraseña
+        if (password_verify($password, $db_password_hash)) {
+            // Inicio de sesión exitoso
+            $_SESSION['id_usuario'] = $id_usuario;
+            $_SESSION['username'] = $db_username;
+            
+            // Redirigir a la página de inicio después del inicio de sesión exitoso con un parámetro
+            header("Location: index.html?loginSuccess=true");
+            exit();
+        } else {
+            // Error en las credenciales
+            header("Location: login.php?error=true");
+            exit();
+        }
     } else {
         // Error en las credenciales
         header("Location: login.php?error=true");
-        exit(); // Asegurarse de salir después de redirigir
+        exit();
     }
 
     // Cerrar la conexión y liberar recursos
@@ -41,6 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     // Acceso directo al script, redirigir al formulario de inicio de sesión
     header("Location: login.php");
-    exit(); // Asegurarse de salir después de redirigir
+    exit();
 }
 ?>
