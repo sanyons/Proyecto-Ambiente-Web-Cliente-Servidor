@@ -3,8 +3,8 @@ session_start();
 
 // Comprobar si se ha enviado un formulario
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Recopilar el ID de la mascota a eliminar
-    $id_mascota = isset($_GET["id"]) ? $_GET["id"] : '';
+    // Recopilar el ID del producto a eliminar
+    $id_producto = isset($_GET["id"]) ? $_GET["id"] : '';
 
     // Conexión a la base de datos 
     $server = "localhost";
@@ -20,20 +20,20 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         die("Error de conexión: " . mysqli_connect_error());
     }
 
-    // Consulta SQL para eliminar una mascota por ID
-    $sql = "DELETE FROM mascota WHERE id_mascota = '$id_mascota'";
+    // Consulta SQL para eliminar un producto por ID
+    $sql = "DELETE FROM producto WHERE id_producto = '$id_producto'";
 
     // Ejecutar la consulta
     if (mysqli_query($conexion, $sql)) {
         // Mostrar mensaje de éxito con JavaScript
-        echo '<script>alert("Mascota eliminada exitosamente.");</script>';
+        echo '<script>alert("Producto eliminado exitosamente.");</script>';
     } else {
         // Mostrar mensaje de error con JavaScript
-        echo '<script>alert("Error al eliminar la mascota: ' . mysqli_error($conexion) . '");</script>';
+        echo '<script>alert("Error al eliminar el producto: ' . mysqli_error($conexion) . '");</script>';
     }
 
-    // Redirigir a mascota.php después de eliminar la mascota
-    echo '<script>window.location.href = "mascota.php";</script>';
+    // Redirigir a producto.php después de eliminar el producto
+    echo '<script>window.location.href = "producto.php";</script>';
 
     // Cerrar la conexión a la base de datos
     mysqli_close($conexion);
