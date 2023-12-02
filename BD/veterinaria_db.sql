@@ -31,7 +31,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE usuario (
   id_usuario INT NOT NULL AUTO_INCREMENT,
   username varchar(20) NOT NULL,
-  password varchar(200) NOT NULL,
+  password varchar(255) NOT NULL,
   nombre VARCHAR(20) NOT NULL,
   apellidos VARCHAR(30) NOT NULL,
   correo VARCHAR(25) NULL,
