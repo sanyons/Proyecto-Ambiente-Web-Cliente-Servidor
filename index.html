@@ -99,13 +99,26 @@
         .then(data => {
           document.getElementById('header-placeholder').innerHTML = data;
         });
-
+    
       fetch('templates/footer.html')
         .then(response => response.text())
         .then(data => {
           document.getElementById('footer-placeholder').innerHTML = data;
         });
+    
+      // Función para obtener parámetros de la URL
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+    
+      // Mostrar el popup si el parámetro está presente en la URL
+      const loginSuccessParam = getUrlParameter('loginSuccess');
+      if (loginSuccessParam === 'true') {
+        alert("Inicio de sesión exitoso. ¡Bienvenido!");
+      }
     </script>
-
   </body>
 </html>
