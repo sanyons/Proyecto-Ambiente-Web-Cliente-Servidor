@@ -46,6 +46,7 @@ $result = $conn->query($sql);
     <div class="container">
         <div class="row">
             <div class="col-md-3">
+                <br>
                 <!-- Botón que llama a la función para cargar el formulario -->
                 <button type="button" class="btn btn-primary btn-block" 
                 onclick="cargarFormularioCrearCategoria()">
@@ -54,8 +55,6 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-
-    <br>
 
     <!-- Contenedor para mostrar el formulario -->
     <div id="formularioContainer"></div>

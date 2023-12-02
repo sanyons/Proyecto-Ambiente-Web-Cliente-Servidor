@@ -31,7 +31,7 @@ DEFAULT CHARACTER SET = utf8mb4;
 CREATE TABLE usuario (
   id_usuario INT NOT NULL AUTO_INCREMENT,
   username varchar(20) NOT NULL,
-  password varchar(200) NOT NULL,
+  password varchar(255) NOT NULL,
   nombre VARCHAR(20) NOT NULL,
   apellidos VARCHAR(30) NOT NULL,
   correo VARCHAR(25) NULL,
@@ -59,7 +59,7 @@ create table mascota(
     sexo varchar(10),
     ruta_imagen varchar(1024),
     activo boolean,
-	id_usuario int,
+	  id_usuario int,
     primary key(id_mascota),
 	foreign key fk_mascota_usuario (id_usuario) references usuario(id_usuario)
 )
