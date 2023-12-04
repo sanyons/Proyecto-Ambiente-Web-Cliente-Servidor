@@ -84,6 +84,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Crear Producto</button>
+            <a href="mascota.php" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Cerrar</a>
         </form>
     </section>
 

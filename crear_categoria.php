@@ -40,7 +40,8 @@
             <input type="checkbox" name="activo"><br>
 
             <input type="submit" value="Crear Categoría">
-
+            <a href="categoria.php" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Cerrar</a>
         </form>
     </section>
 
