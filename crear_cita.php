@@ -1,3 +1,27 @@
+<?php
+// Establecer la conexión mysqli
+$server = "localhost";
+$user = "root";
+$password = "";
+$dataBase = "veterinaria_db";
+
+// Reabrir la conexión a la base de datos
+$conn = new mysqli($server, $user, $password, $dataBase);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Error de conexión a la base de datos: " . $conn->connect_error);
+}
+
+// Consulta para obtener nombres de mascotas
+$sqlMascotas = "SELECT id_mascota, nombre FROM mascota WHERE activo = 1";
+$resultMascotas = $conn->query($sqlMascotas);
+
+// Consulta para obtener nombres de dueños
+$sqlDueños = "SELECT id_usuario, nombre FROM usuario WHERE activo = 1";
+$resultDueños = $conn->query($sqlDueños);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,113 +29,71 @@
     <link rel="preload" href="css/styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
-      <!-- Incluir el header -->
+    <!-- Incluir el header -->
 </head>
 
+<body>
     <header class="header" id="header-placeholder">
         <!-- El contenido del header se cargará aquí -->
     </header>
 
-<body>
+    <section>
+        <h1>Agendar Cita</h1>
+        <!-- Formulario para agendar una nueva cita -->
+        <form method="POST" action="procesar_cita.php" enctype="multipart/form-data">
 
-  
+            <label for="nombre_mascota">Nombre de la Mascota:</label>
+            <select name="nombre_mascota" required>
+                <?php while ($rowMascota = $resultMascotas->fetch_assoc()) : ?>
+                    <option value="<?php echo $rowMascota['id_mascota']; ?>"><?php echo $rowMascota['nombre']; ?></option>
+                <?php endwhile; ?>
+            </select><br>
 
-    <h1>Agendar Cita</h1>
-    <form method="POST" action="procesar_cita.php">
-        <label for="nombre_mascota">Nombre de la Mascota:</label>
-        <input type="text" name="nombre_mascota" required><br>
+            <label for="nombre_duenno">Nombre del Dueño:</label>
+            <select name="nombre_duenno" required>
+                <?php while ($rowDueño = $resultDueños->fetch_assoc()) : ?>
+                    <option value="<?php echo $rowDueño['id_usuario']; ?>"><?php echo $rowDueño['nombre']; ?></option>
+                <?php endwhile; ?>
+            </select><br>
 
-        <label for="nombre_duenno">Nombre del Dueño:</label>
-        <input type="text" name= "nombre_duenno" required><br>
+            <label for="descripcion">Descripción:</label>
+            <textarea name="descripcion" required></textarea><br>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea name="descripcion" required></textarea><br>
+            <label for="ruta_imagen">Imagen de la padencia:</label>
+            <input type="file" name="ruta_imagen"><br>
 
-        <label for="ruta_imagen">Imagen de la Mascota:</label>
-        <input type="file" name="ruta_imagen"><br>
+            <label for="fecha_cita" class="form-label">Fecha de la cita:</label>
+            <input type="datetime-local" id="fecha_cita" name="fecha_cita" class="form-control" required>
 
-        <!-- <label for="horario_disponible">Seleccionar Horario:</label>
-        <select  name="horario_disponible" required> -->
-       
-        <label for="horario_disponible">Seleccionar Horario:</label>
-        <select name="horario_disponible" required>
-        <?php
-date_default_timezone_set('America/Costa_Rica');
-session_start();
+            <br>
+            <br>
+            <input type="submit" value="Agendar Cita">
+        </form>
+    </section>
 
-// Conexión a la base de datos 
-$server = "localhost";
-$user = "root";
-$password = "";
-$dataBase = "veterinaria_db";
+    <!-- Incluir el footer -->
+    <footer id="footer-placeholder">
+        <!-- El contenido del footer se cargará aquí -->
+    </footer>
 
-// Establecer la conexión mysqli
-$conexion = mysqli_connect($server, $user, $password, $dataBase);
+    <script>
+        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
+        fetch('templates/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
 
-// Verificar la conexión
-if (!$conexion) {
-    die("Error de conexión a la base de datos: " . mysqli_connect_error());
-}
-
-// Obtener el día de la semana actual
-$dia_semana_actual = strtolower(date('l')); // Convertir a minúsculas
-
-// Obtener la hora actual
-$hora_actual = date('H:i:s');
-
-// Consultar los horarios disponibles para el día actual y con hora de inicio posterior a la hora actual
-$sql = "SELECT id_horario, hora_inicio, hora_fin
-        FROM horarios_disponibles
-        WHERE dia_semana = '$dia_semana_actual' 
-        AND activo = 1
-        AND STR_TO_DATE(CONCAT(CURDATE(), ' ', hora_inicio), '%Y-%m-%d %H:%i:%s') > STR_TO_DATE('$hora_actual', '%H:%i:%s')";
-
-$result = $conexion->query($sql);
-
-// Imprimir errores de la consulta
-if (!$result) {
-    echo "Error en la consulta: " . $conexion->error;
-}
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo "<option value='" . $row['id_horario'] . "'>" . $row['hora_inicio'] . " - " . $row['hora_fin'] . "</option>";
-    }
-} else {
-    echo "<option value='' disabled> No hay horarios disponibles para hoy.</option>";
-}
-
-$conexion->close();
-?>
-
-</select>
-        <br>
-        <br>
-        <input type="submit" value="Agendar Cita">
-       
-    </form>
-
-   
-
+        fetch('templates/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+    </script>
 </body>
-
-<!-- Incluir el footer -->
-<footer id="footer-placeholder">
-    <!-- El contenido del footer se cargará aquí -->
-</footer>
-
-<script>
-    // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-    fetch('templates/header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-        });
-
-    fetch('templates/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        });
-</script>
 </html>
+
+<?php
+// Cerrar la conexión a la base de datos
+$conn->close();
+?>

@@ -27,91 +27,121 @@ $result = $conn->query($sql);
     <link rel="preload" href="css/styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
-    <!-- Incluir el header -->
-    <!-- Bootstrap header -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
-    <header class="header" id="header-placeholder"></header>
+    <header class="header" id="header-placeholder">
+        <!-- El contenido del header se cargará aquí -->
+    </header>
 
-    <div class="row">
-        <div class="col-md-3">   
-            <!-- Botón que redirige a la página crear_usuario.php -->
-            <button 
-                type="button" 
-                class="btn btn-primary btn-block" 
-                onclick="window.location.href='crear_cita.php'"
-            >
-                <i class="fas fa-plus"></i> Agregar
-            </button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <br>
+                <!-- Botón que llama a la función para cargar el formulario -->
+                <button type="button" class="btn btn-primary btn-block" 
+                onclick="cargarFormularioCrearCita()">
+                    <i class="fas fa-plus"></i> Agregar Cita
+                </button>
+            </div>
         </div>
     </div>
 
-    <section>
-        <!-- Listado de citas -->
-        <section id="citas">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-header" style="background-color: #42829C;">
-                                <h4 style="color:white">Listado de Citas</h4>
-                            </div>
-                            <div class="container">
-                            </div>
-                            <div>
-                                <?php if ($result->num_rows > 0): ?>
-                                    <table class="table table-striped table-hover">
-                                        <thead class="table-primary">
+    <!-- Contenedor para mostrar el formulario -->
+    <div id="formularioContainer"></div>
+
+    <section id="citas">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #42829C;">
+                            <h4 style="color:white">Listado de Citas</h4>
+                        </div>
+                        <div class="container">
+                        </div>
+                        <div>
+                            <?php if ($result->num_rows > 0): ?>
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nombre Mascota</th>
+                                            <th>Nombre Dueño</th>
+                                            <th>Descripción</th>
+                                            <th>Imagen</th>
+                                            <th>Fecha Cita</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while($row = $result->fetch_assoc()): ?>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Descripción</th>
-                                                <th>Estado</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php while($row = $result->fetch_assoc()): ?>
-                                                <tr>
-                                                    <td><?php echo $row["id_citas"]; ?></td>
-                                                    <td><?php echo $row["descripcion"]; ?></td>
-                                                    <td><?php echo $row["estado"] ? 'Activa' : 'Inactiva'; ?></td>
-                                                    <td>
-                                                        <a href="/cita/eliminar/<?php echo $row["id_citas"]; ?>" class="btn btn-danger">
+                                                <td><?php echo $row["id_citas"]; ?></td>
+                                                <td><?php echo $row["nombre_mascota"]; ?></td>
+                                                <td><?php echo $row["nombre_duenno"]; ?></td>
+                                                <td><?php echo $row["descripcion"]; ?></td>
+                                                <td><img src="<?php echo $row["ruta_imagen"]; ?>" alt="Imagen de perfil" style="width: 50px; height: 50px;"></td>
+                                                <td><?php echo $row["fecha_cita"]; ?></td>
+                                                <td><?php echo $row["estado"] ? 'Activa' : 'Inactiva'; ?></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a href="eliminar_cita.php?id=<?php echo $row["id_citas"]; ?>" class="btn btn-danger">
                                                             <i class="fas fa-trash"></i> Eliminar
                                                         </a>
-                                                        <a href="/cita/modificar/<?php echo $row["id_citas"]; ?>" class="btn btn-success">
+                                                        <a href="actualizar_cita.php?id=<?php echo $row["id_citas"]; ?>" class="btn btn-success">
                                                             <i class="fas fa-pencil"></i> Actualizar
                                                         </a>
-                                                    </td>
-                                                </tr>
-                                            <?php endwhile; ?>
-                                        </tbody>
-                                    </table>
-                                <?php else: ?>
-                                    <div class="text-center p-2">
-                                        <span>No hay citas registradas.</span>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            <?php else: ?>
+                                <div class="text-center p-2">
+                                    <span>No hay citas registradas.</span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card text-center mb-3">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1572/1572132.png" alt="categorias" style="width:100%">
-                            <div class="container">
-                                <h4 class="fs-2">Citas</h4>
-                            </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center mb-3">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1572/1572132.png" alt="categorias" style="width:100%">
+                        <div class="container">
+                            <h4 class="fs-2">Citas</h4>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </section>
 
     <!-- Incluir el footer -->
-    <footer id="footer-placeholder"></footer>
+    <footer id="footer-placeholder">
+        <!-- El contenido del footer se cargará aquí -->
+    </footer>
+
+    <script>
+        // Función para cargar el formulario de crear cita
+        function cargarFormularioCrearCita() {
+            // Hacer una solicitud AJAX para obtener el contenido del formulario
+            fetch('crear_cita.php')
+                .then(response => response.text())
+                .then(data => {
+                    // Insertar el formulario en el contenedor
+                    document.getElementById('formularioContainer').innerHTML = data;
+                });
+        }
+    </script>
+
+    <?php
+    // Cerrar la conexión a la base de datos
+    $conn->close();
+    ?>
 
     <script>
         // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
@@ -132,8 +162,3 @@ $result = $conn->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
-
-<?php
-// Cerrar la conexión a la base de datos
-$conn->close();
-?>
