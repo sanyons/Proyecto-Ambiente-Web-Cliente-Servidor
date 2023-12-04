@@ -105,8 +105,8 @@ $result = $conn->query($sql);
     </footer>
 
     <script>
-    // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-    fetch('templates/header.html')
+    // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+    fetch('templates/header.php')
         .then(response => response.text())
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
