@@ -1,36 +1,60 @@
 <?php
 session_start();
-// Conexión a la base de datos 
-$server = "localhost";
-$user = "root";
-$password = "";
-$dataBase = "veterinaria_db";
-//1. Establecer la conexion mysqli
-$conexion = mysqli_connect($server, $user, $password, $dataBase);
 
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
-}
+// Comprobar si se ha enviado un formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recopilar los datos del formulario
+    $nombre_mascota = $_POST["nombre_mascota"];
+    $nombre_duenno = $_POST["nombre_duenno"];
+    $descripcion = $_POST["descripcion"];
+    $ruta_imagen = "";
 
-// Recopilar datos del formulario
-$nombre_mascota = $_POST["nombre_mascota"];
-$nombre_duenno = $_POST["nombre_duenno"];
-$descripcion = $_POST["descripcion"];
-$ruta_imagen = $_FILES["ruta_imagen"]["name"];
-$id_usuario = $_POST["id_usuario"];  // Deberás proporcionar el id del usuario propietario de la mascota
-$id_horario = $_POST["horario_disponible"];  // Recupera el id del horario seleccionado
+    // Verificar si se ha cargado una imagen
+    if (isset($_FILES["ruta_imagen"]) && $_FILES["ruta_imagen"]["error"] === 0) {
+        // Establece la ubicación donde se guardará la imagen
+        $ruta_imagen = "uploads/" . $_FILES["ruta_imagen"]["name"];
 
-// Insertar la cita en la base de datos con el id_horario
-$sql = "INSERT INTO citas (nombre_mascota, nombre_duenno, descripcion, ruta_imagen, estado, activo, id_usuario, id_horario)
-        VALUES ('$nombre_mascota', '$nombre_duenno', '$descripcion', '$ruta_imagen', 1, 1, $id_usuario, $id_horario)";
+        // Mueve la imagen al directorio de destino
+        move_uploaded_file($_FILES["ruta_imagen"]["tmp_name"], $ruta_imagen);
+    }
 
-if ($conexion->query($sql) === TRUE) {
-    echo "Cita creada exitosamente.";
+    $fecha_cita = $_POST["fecha_cita"];
+    $estado = 1; // Puedes ajustar esto según tus necesidades
+    $activo = 1; // Puedes ajustar esto según tus necesidades
+
+    // Conexión a la base de datos 
+    $server = "localhost";
+    $user = "root";
+    $password = "";
+    $dataBase = "veterinaria_db";
+
+    // Establecer la conexión mysqli
+    $conexion = mysqli_connect($server, $user, $password, $dataBase);
+
+    // Verificar la conexión
+    if (!$conexion) {
+        die("Error de conexión: " . mysqli_connect_error());
+    }
+
+    // Consulta SQL para insertar una nueva cita
+    $sql = "INSERT INTO citas (nombre_mascota, nombre_duenno, descripcion, ruta_imagen, fecha_cita, estado, activo)
+            VALUES ('$nombre_mascota', '$nombre_duenno', '$descripcion', '$ruta_imagen', '$fecha_cita', $estado, $activo)";
+
+    // Ejecutar la consulta
+    if (mysqli_query($conexion, $sql)) {
+        // Mostrar mensaje de éxito con JavaScript
+        echo '<script>alert("Cita creada exitosamente.");</script>';
+    } else {
+        // Mostrar mensaje de error con JavaScript
+        echo '<script>alert("Error al crear la cita: ' . mysqli_error($conexion) . '");</script>';
+    }
+
+    // Redirigir a cita.php después de procesar el formulario
+    echo '<script>window.location.href = "cita.php";</script>';
+
+    // Cerrar la conexión a la base de datos
+    mysqli_close($conexion);
 } else {
-    echo "Error al crear la cita: " . $conexion->error;
+    echo "Acceso no válido.";
 }
-
-$conexion->close();
 ?>
-
-
