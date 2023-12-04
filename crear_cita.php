@@ -68,6 +68,8 @@ $resultDueños = $conn->query($sqlDueños);
             <br>
             <br>
             <input type="submit" value="Agendar Cita">
+            <a href="cita.php" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Cerrar</a>
         </form>
     </section>
 
