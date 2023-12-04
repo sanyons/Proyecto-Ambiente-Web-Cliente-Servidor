@@ -7,6 +7,7 @@ create table citas(
   nombre_duenno VARCHAR(30)NOT NULL,
   descripcion VARCHAR(30) NOT NULL,
   ruta_imagen varchar(1024) null,
+  fecha_cita DATETIME,
   estado bool,
   activo bool,
   PRIMARY KEY (id_citas))
