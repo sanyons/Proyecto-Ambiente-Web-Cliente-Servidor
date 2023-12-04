@@ -91,7 +91,7 @@ $result = $conn->query($sql);
                                                         <a href="eliminar_cita.php?id=<?php echo $row["id_citas"]; ?>" class="btn btn-danger">
                                                             <i class="fas fa-trash"></i> Eliminar
                                                         </a>
-                                                        <a hhref="actualizar_cita.php?id=<?php echo $row["id_citas"]; ?>" class="btn btn-success">
+                                                        <a href="actualizar_cita.php?id=<?php echo $row["id_citas"]; ?>" class="btn btn-success">
                                                             <i class="fas fa-pencil"></i> Actualizar
                                                         </a>
                                                     </div>
