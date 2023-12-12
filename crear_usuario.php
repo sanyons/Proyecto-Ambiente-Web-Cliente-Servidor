@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Crear Usuario</title>
+    <title>Registrar Usuario</title>
     <link rel="preload" href="css/styles.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/calendario.css">
 </head>
 <body>
-    <h1>Crear Usuario</h1>
+    <h1>Registrar Usuario</h1>
     <!-- Formulario para crear un nuevo usuario -->
     <form method="POST" action="procesar_usuario.php" enctype="multipart/form-data">
         <input type="hidden" name="accion" value="Crear Usuario">

@@ -40,7 +40,8 @@
             <input type="checkbox" name="activo"><br>
 
             <input type="submit" value="Crear Categoría">
-
+            <a href="categoria.php" class="btn btn-secondary btn-block">
+            <i class="fas fa-arrow-left"></i> Cerrar</a>
         </form>
     </section>
 
@@ -50,8 +51,8 @@
     </footer>
 
     <script>
-        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-        fetch('templates/header.html')
+        // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+        fetch('templates/header.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
