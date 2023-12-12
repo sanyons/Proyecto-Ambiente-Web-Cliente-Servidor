@@ -80,6 +80,7 @@ $resultDueños = $conn->query($sqlDueños);
 
     <script>
         // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+
         fetch('templates/header.html')
             .then(response => response.text())
             .then(data => {

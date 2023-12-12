@@ -112,9 +112,10 @@
 
     <!-- Script para cargar el header y el footer -->
     <script>
-        // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+
+        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('templates/header.php')
+            fetch('templates/header.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('header-placeholder').innerHTML = data;
