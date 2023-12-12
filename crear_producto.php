@@ -99,8 +99,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> 
 
     <script>
-        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-        fetch('templates/header.html')
+        // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+        fetch('templates/header.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;

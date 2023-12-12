@@ -57,7 +57,7 @@ $result = $conn->query($sql);
         <section id="expedientes">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-10">
                         <div class="card">
                             <div class="card-header" style="background-color: #42829C;">
                                 <h4 style="color:white">Listado de Expedientes</h4>
@@ -101,6 +101,9 @@ $result = $conn->query($sql);
                                                             <a href="actualizar_expediente.php?id=<?php echo $row["id_expediente"]; ?>" class="btn btn-success">
                                                                 <i class="fas fa-pencil"></i> Actualizar
                                                             </a>
+                                                            <a href="descargar_expediente.php?id=<?php echo $row["id_expediente"]; ?>" class="btn btn-primary">
+                                                                <i class="fas fa-download"></i> Descargar
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -115,7 +118,7 @@ $result = $conn->query($sql);
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="card text-center mb-3">
                             <img src="https://cdn-icons-png.flaticon.com/512/2246/2246679.png" alt="categorias" style="width:100%">
                             <div class="container">
@@ -168,8 +171,8 @@ $result = $conn->query($sql);
 
     <!-- Script para cargar el header y el footer -->
     <script>
-        // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-        fetch('templates/header.html')
+        // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+        fetch('templates/header.php')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;

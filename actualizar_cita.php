@@ -112,6 +112,7 @@
 
     <!-- Script para cargar el header y el footer -->
     <script>
+
         // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
         document.addEventListener("DOMContentLoaded", function () {
             fetch('templates/header.html')

@@ -39,19 +39,7 @@ $result = $conn->query($sql);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <!-- boostrap -->
-    <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
-        <div class="row">
-            <div class="col-md-3">   
-                <button 
-                    type="button" 
-                    class="btn btn-primary btn-block" 
-                    data-bs-toggle="modal" 
-                    data-bs-target="#agregarMascota">
-                    <i class="fas fa-plus"></i> Agregar
-                </button>
-            </div>
-        </div>
-    </div>
+    
     <div class="container my-5">
         <div class="row align-items-center"> 
             <div class="col-md-3"></div>
@@ -74,14 +62,11 @@ $result = $conn->query($sql);
                                     <input class="form-control" type="password" name="password" id="password"/>
                                 </div>
                             </div>
-                            <div class="card-footer col text-center">
-                                <button class="btn btn-secondary">
-                                    <a href="registro/nuevo" class="btn" style="color: white"><i class="fas fa-user-plus"></i> Registrar</a>
+                            <div class="btn-group">
+                                <button class="btn btn-success">
+                                    <a href="crear_usuario.php" class="btn" style="color: white"><i class="fas fa-user-plus"></i> Registrar</a>
                                 </button>
-                                <button class="btn btn-warning">
-                                    <a href="registro/recordar" class="btn" style="color: white"><i class="fas fa-envelope"></i> Recordar</a>
-                                </button>
-                                <button class="btn" style="background-color: #42829C" type="submit">
+                                <button class="btn btn-primary" style="background-color: #42829C" type="submit">
                                     <span class="btn" style="color: white"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</span>
                                 </button>
                             </div>
@@ -105,8 +90,21 @@ $result = $conn->query($sql);
     </footer>
 
     <script>
-    // Utilizando fetch para cargar el contenido de templates/header.html y templates/footer.html
-    fetch('templates/header.html')
+        // Función para cargar el formulario de crear usuario
+        function cargarFormularioCrearUsuario() {
+            // Hacer una solicitud AJAX para obtener el contenido del formulario
+            fetch('crear_usuario.php')
+                .then(response => response.text())
+                .then(data => {
+                    // Insertar el formulario en el contenedor
+                    document.getElementById('formularioContainer').innerHTML = data;
+                });
+        }
+    </script>
+
+    <script>
+    // Utilizando fetch para cargar el contenido de templates/header.php y templates/footer.html
+    fetch('templates/header2.php')
         .then(response => response.text())
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
