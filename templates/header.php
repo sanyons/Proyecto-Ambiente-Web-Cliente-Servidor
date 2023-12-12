@@ -22,7 +22,7 @@ session_start();
     
     <nav class="navbar navbar-expand-lg navbar-dark container-fluid">
         <div class="container">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="index.html">
                 <img src="img/logoraw.png" alt="Logotipo" height="100" class=rounded-circle>
             </a>
     
